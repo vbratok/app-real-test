@@ -1,0 +1,33 @@
+version: '3.6'
+services:
+  mongodb:
+    # the latest Docker version isn't suppornted on my iOS 10.15, so I used the older version
+    # as the result the latest mongo image (5+) doesn't want to run on Docker v18.06
+    image: mongo:4.0.4
+    ports:
+      - 27017:27017
+    env_file: 
+      - docker.env
+    volumes:
+      - app-real-test-data-container:/data/db
+    command: mongod
+    restart: unless-stopped
+
+  api:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - api.env
+    ports:
+      - ${API_PORT}:${API_PORT}
+    environment:
+      - API_PORT=${API_PORT}
+    command: npm run start:api
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+volumes:
+  app-real-test-data-container:

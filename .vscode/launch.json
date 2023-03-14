@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Debug NestJS in Docker",
+      "protocol": "inspector",
+      "address": "localhost",
+      "port": 9229,
+      "sourceMaps": true,
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/usr/src/app"
+    },
+    {
+      "name": "Debug NestJS locally",
+      "port": 9229,
+      "request": "attach",
+      "sourceMaps": true,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}

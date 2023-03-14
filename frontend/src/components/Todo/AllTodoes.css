@@ -1,0 +1,8 @@
+.filter-label {
+  align-self: center;
+}
+
+.todo-completed {
+  background-color: rgb(244, 244, 244);
+  text-decoration: line-through;
+}

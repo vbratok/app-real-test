@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "turbo": "^1.8.3"
+  },
+  "scripts": {
+    "format": "turbo run format",
+    "start": "turbo run start",
+    "start:dev": "turbo run start:dev",
+    "start:debug": "turbo run start:debug",
+    "start:local": "turbo run start:local",
+    "start:local:dev": "turbo run start:local:dev",
+    "start:local:debug": "turbo run start:local:debug",
+    "test": "turbo run test"
+  },
+  "workspaces": ["backend", "frontend"]
+}

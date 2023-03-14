@@ -1,0 +1,32 @@
+version: '3.6'
+services:
+  mongodb:
+    # for some reasons the latest vestion doesn't want to run on ios
+    image: mongo:4.0.4
+    ports:
+      - 27017:27017
+    env_file: 
+      - docker.env
+    volumes:
+      - app-real-test-data-container:/data/db
+    command: mongod
+    restart: unless-stopped
+
+  api:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - api.env
+    ports:
+      - ${API_PORT}:${API_PORT}
+    environment:
+      - API_PORT=${API_PORT}
+    command: npm run start:api:dev # override entry command
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+volumes:
+  app-real-test-data-container:
