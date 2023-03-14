@@ -47,6 +47,10 @@ $ npm run start:dev
 $ npm run start:debug
 ```
 
+-The client: http://localhost:3000 in the browser
+-The API: http://localhost:3001/ 
+-The Swagger: The API: http://localhost:3001/api/
+
 In case you want to run the app locally, use the following commands. Please keep in mind that the MongoDB server will be run in the docker container thought. This approach is preferable for debugging both the client end server.
 ```bash
 # development
@@ -60,11 +64,7 @@ $ npm run start:local:dev
 # debug mode
 $ npm run start:local:debug
 ```
-User "Debug NestJS locally" in the Debug section of Visual Studio (listened in the launch.json file). 
-
-The client: http://localhost:3000 in the browser
-The API: http://localhost:3001/ 
-The Swagger: The API: http://localhost:3001/api/
+Use "Debug NestJS locally" item in the Debug section of Visual Studio (listened in the launch.json file). 
 
 ## Run tests
 To run Unit tests both for the Frontend end Backend use the following command:
