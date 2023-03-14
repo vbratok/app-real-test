@@ -25,15 +25,15 @@ afterEach(() => {
 
 it('renders without crashing', () => {
   act(() => {
-    root.render(<AllTodoes />)
+    root.render(<AllTodoes />);
   });
 });
 
 it.skip('renders table with no items message', () => {
   act(() => {
-    root.render(<AllTodoes />)
+    root.render(<AllTodoes />);
   });
-  
+
   expect(screen.getByText('No items to display')).toBeInTheDocument();
   //expect(container?.textContent).toContain('No items to display');
 });

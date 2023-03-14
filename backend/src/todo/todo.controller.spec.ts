@@ -8,20 +8,20 @@ import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
 
 const createDto: CreateTodoDto = {
-  text: "Todo Text goes here",
+  text: 'Todo Text goes here',
 };
 
 const userMock = {
-  _id: "640f2997fb5c556ecd662c8f",
-  name: "John Due",
-  email: "j.due@dummyserver.com",
+  _id: '640f2997fb5c556ecd662c8f',
+  name: 'John Due',
+  email: 'j.due@dummyserver.com',
 } as User;
 
 const mock = {
   _id: '640cdeabe46091b9c3f8939c',
-  text: "Todo Text goes here",
+  text: 'Todo Text goes here',
   completed: false,
-  createdDate: new Date("2023-03-13T13:58:16.000+00:00"),
+  createdDate: new Date('2023-03-13T13:58:16.000+00:00'),
   author: userMock,
 } as Todo;
 
@@ -34,14 +34,14 @@ describe('TodoController', () => {
       controllers: [TodoController],
       providers: [
         {
-            provide: TodoService,
-            useValue: {
-              create: jest.fn().mockResolvedValue(mock),
-              findAllForUser: jest.fn().mockResolvedValue([mock, mock, mock]),
-              update: jest.fn(),
-              remove: jest.fn().mockResolvedValue(mock),
-            },
+          provide: TodoService,
+          useValue: {
+            create: jest.fn().mockResolvedValue(mock),
+            findAllForUser: jest.fn().mockResolvedValue([mock, mock, mock]),
+            update: jest.fn(),
+            remove: jest.fn().mockResolvedValue(mock),
           },
+        },
       ],
     }).compile();
 
@@ -54,46 +54,53 @@ describe('TodoController', () => {
   });
 
   it('should create a todo', () => {
-    expect(controller.create(createDto, { user: userMock } as RequestWithUser)).resolves.toEqual(mock);
+    expect(
+      controller.create(createDto, { user: userMock } as RequestWithUser),
+    ).resolves.toEqual(mock);
   });
 
   it('should return a list of all todoes', async () => {
-    const findSpy = jest
-      .spyOn(service, 'findAllForUser');
-    
-    const response = await controller.find("all", { user: userMock } as RequestWithUser);
+    const findSpy = jest.spyOn(service, 'findAllForUser');
+
+    const response = await controller.find('all', {
+      user: userMock,
+    } as RequestWithUser);
     expect(response).toEqual([mock, mock, mock]);
     expect(findSpy).toBeCalledWith('all', userMock);
   });
 
-
   it('should return a list of active todoes', async () => {
-    const findSpy = jest
-      .spyOn(service, 'findAllForUser');
-    
-    const response = await controller.find("active", { user: userMock } as RequestWithUser);
+    const findSpy = jest.spyOn(service, 'findAllForUser');
+
+    const response = await controller.find('active', {
+      user: userMock,
+    } as RequestWithUser);
     expect(response).toEqual([mock, mock, mock]);
     expect(findSpy).toBeCalledWith('active', userMock);
   });
 
   it('should return a list of completed todoes', async () => {
-    const findSpy = jest
-      .spyOn(service, 'findAllForUser');
-    
-    const response = await controller.find("completed", { user: userMock } as RequestWithUser);
+    const findSpy = jest.spyOn(service, 'findAllForUser');
+
+    const response = await controller.find('completed', {
+      user: userMock,
+    } as RequestWithUser);
     expect(response).toEqual([mock, mock, mock]);
     expect(findSpy).toBeCalledWith('completed', userMock);
   });
 
   it('should update a todo', () => {
-    expect(controller.update(
-      { _id: "some id", completed: true, "text": "some text" } as UpdateTodoDto,
-      { user: userMock } as RequestWithUser)).toEqual(undefined);
+    expect(
+      controller.update(
+        { _id: 'some id', completed: true, text: 'some text' } as UpdateTodoDto,
+        { user: userMock } as RequestWithUser,
+      ),
+    ).toEqual(undefined);
   });
 
   it('should remove a todo', () => {
-    expect(controller.remove(
-      mock._id,
-      { user: userMock } as RequestWithUser)).resolves.toEqual(mock);
+    expect(
+      controller.remove(mock._id, { user: userMock } as RequestWithUser),
+    ).resolves.toEqual(mock);
   });
 });
